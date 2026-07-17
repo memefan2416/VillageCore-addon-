@@ -6,164 +6,175 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>README - むらびと君(アドオン用)</title>
-
+<title>README / 開発ガイド - むらびと君(アドオン用)</title>
 
 <style>
 
 *{
-box-sizing:border-box;
+    box-sizing:border-box;
 }
-
 
 body{
 
-margin:0;
+    margin:0;
 
-background:
-linear-gradient(
-135deg,
-#F1F8E9,
-#E8F5E9
-);
+    background:
+    linear-gradient(
+        135deg,
+        #F1F8E9,
+        #E8F5E9
+    );
 
-font-family:
--apple-system,
-BlinkMacSystemFont,
-"Segoe UI",
-"Hiragino Sans",
-"Yu Gothic UI",
-sans-serif;
+    font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    "Hiragino Sans",
+    "Yu Gothic UI",
+    sans-serif;
 
-color:#333;
+    color:#333;
 
 }
-
-
 
 .container{
 
-max-width:900px;
+    max-width:1000px;
 
-margin:50px auto;
+    margin:50px auto;
 
-padding:20px;
+    padding:20px;
 
 }
-
-
 
 .document{
 
-background:white;
+    background:white;
 
-padding:40px;
+    padding:45px;
 
-border-radius:20px;
+    border-radius:20px;
 
-border-top:6px solid #8BC34A;
+    border-top:6px solid #8BC34A;
 
-box-shadow:
-
-0 10px 30px rgba(46,125,50,.12);
+    box-shadow:
+    0 10px 30px rgba(46,125,50,.12);
 
 }
-
-
 
 h1{
 
-color:#2E7D32;
+    color:#2E7D32;
 
-font-size:32px;
+    margin-top:0;
 
-margin-top:0;
+    font-size:36px;
 
 }
-
-
 
 h2{
 
-margin-top:40px;
+    margin-top:45px;
 
-padding-left:12px;
+    border-left:6px solid #8BC34A;
 
-border-left:5px solid #8BC34A;
+    padding-left:12px;
 
-color:#33691E;
+    color:#33691E;
 
 }
-
-
 
 h3{
 
-color:#558B2F;
+    color:#558B2F;
 
-margin-top:25px;
+    margin-top:30px;
 
 }
-
-
 
 p,li{
 
-line-height:1.8;
+    line-height:1.8;
 
 }
-
-
 
 code{
 
-background:#E8F5E9;
+    background:#E8F5E9;
 
-color:#1B5E20;
+    color:#1B5E20;
 
-padding:3px 7px;
+    padding:3px 7px;
 
-border-radius:6px;
+    border-radius:6px;
 
-font-weight:bold;
+    font-weight:bold;
+
+    font-family:
+    Consolas,
+    monospace;
 
 }
-
-
 
 pre{
 
-background:#FFF8DC;
+    background:#FFF8DC;
 
-color:#33691E;
+    color:#33691E;
 
-padding:22px;
+    border:1px solid #DCE775;
 
-border-radius:15px;
+    border-radius:15px;
 
-border:1px solid #DCEDC8;
+    padding:22px;
 
-overflow-x:auto;
+    overflow:auto;
 
-line-height:1.7;
-
-}
-
-
-
-.section{
-
-background:#F9FFF2;
-
-padding:20px;
-
-border-radius:12px;
-
-margin-top:25px;
+    line-height:1.7;
 
 }
 
+.step{
 
+    margin-top:25px;
+
+    padding:20px;
+
+    border-left:5px solid #4CAF50;
+
+    background:#F8FFF3;
+
+    border-radius:10px;
+
+}
+
+.point{
+
+    margin-top:20px;
+
+    padding:18px;
+
+    background:#E8F5E9;
+
+    border-left:5px solid #4CAF50;
+
+    border-radius:10px;
+
+}
+
+.warning{
+
+    margin-top:20px;
+
+    padding:18px;
+
+    background:#FFF8E1;
+
+    border-left:5px solid #FFC107;
+
+    border-radius:10px;
+
+}
 
 .back{
 
@@ -183,8 +194,9 @@ text-decoration:none;
 
 font-weight:bold;
 
-}
+transition:.2s;
 
+}
 
 .back:hover{
 
@@ -192,199 +204,148 @@ background:#2E7D32;
 
 }
 
-
-
 </style>
-
 
 </head>
 
-
 <body>
-
 
 <div class="container">
 
-
 <div class="document">
 
-
 <h1>
+
 📖 README / 開発ガイド
+
 </h1>
 
-
 <p>
 
-このページでは、むらびと君(アドオン用)で
-アドオンモジュールを作成する方法を説明します。
+このページでは、
+<b>むらびと君(アドオン用)</b>
+のアドオン開発方法について説明します。
+
+テンプレートを利用することで、
+簡単に新しいアドオンを作成できます。
 
 </p>
-
-<p>
-
-なお、このページは
-<code>VillageCore-main/addon/README.md</code>
-の内容と同一の物となっております
-
-</p>
-
-
-
-<div class="section">
-
 
 <h2>
-Addon Modules
-</h2>
 
+🌱 アドオンとは
+
+</h2>
 
 <p>
 
 <code>addon/</code>
-フォルダにPythonモジュールを配置すると、
-起動時に自動で読み込まれるアドオンとして動作します。
+
+フォルダ内へPythonファイルを配置すると、
+Bot起動時に自動検出され、
+
+<code>load_addons()</code>
+
+によって読み込まれます。
+
+アドオンを利用することで、
+Bot本体を書き換えることなく
+自由に機能を追加できます。
 
 </p>
 
+<div class="point">
+
+<b>💡 ポイント</b>
+
+<br><br>
+
+アドオンは
+<b>Discord.pyのCog</b>
+として動作します。
+
+既存機能を壊さず、
+独立した機能として追加できます。
 
 </div>
 
-
-
 <h2>
-1. 追加の基本方針
+
+📝 アドオン作成手順
+
 </h2>
 
-
-<ol>
-
-<li>
-<code>VillageCore-main/addon/addons/</code>フォルダ内に
-<code>.py</code>ファイルを作成します。
-</li>
-
-<li>
-DiscordのCogを作成します。
-</li>
-
-<li>
-<code>async def setup(bot)</code>
-を定義してCogを追加します。
-</li>
-
-<li>
-ボットを再起動すると自動的に読み込まれます。
-</li>
-
-
-</ol>
-
-
-
-<h2>
-2. 追加手順
-</h2>
-
+<div class="step">
 
 <h3>
-Step 1: ファイルを作る
-</h3>
 
+Step 1
+テンプレートをコピーする
+
+</h3>
 
 <p>
 
-例:
+まずは
 
-</p>
+<code>template/</code>
 
-
-<pre>
-addon/my_addon.py
-</pre>
-
-
-
-<h3>
-Step 2: コードを書く
-</h3>
-
-
-<pre>
-import discord
-from discord.ext import commands
-
-
-class MyAddon(commands.Cog):
-
-    def __init__(self, bot: commands.Bot):
-        self.bot = bot
-
-
-    @commands.Cog.listener()
-    async def on_ready(self):
-        print("MyAddon loaded")
-
-
-async def setup(bot: commands.Bot):
-    await bot.add_cog(MyAddon(bot))
-</pre>
-
-
-
-<h3>
-Step 3: スラッシュコマンド追加
-</h3>
-
-
-<pre>
-@app_commands.command(
-name="myaddon_ping",
-description="テスト用コマンド"
-)
-
-async def myaddon_ping(
-self,
-interaction: discord.Interaction
-):
-
-    await interaction.response.send_message(
-        "Hello from addon",
-        ephemeral=True
-    )
-</pre>
-
-
-
-<h3>
-Step 4: ボットを再起動
-</h3>
-
-
-<pre>
-python bot.py
-</pre>
-
-
-<p>
-
-成功すると以下のようなログが表示されます。
+フォルダ内にあるテンプレートを
+コピーします。
 
 </p>
 
 <pre>
-📦addons loaded successfully: 読み込まれているアドオン数
+template/
+└── sample_addon.py
 </pre>
+
+<p>
+
+コピーしたファイル名を、
+作成したいアドオン名へ変更してください。
+
+</p>
 
 <pre>
-📦loaded addon list: 読み込まれているアドオン名
+my_addon.py
 </pre>
 
+<div class="point">
 
-<h2>
-3. 追加できる内容
-</h2>
+<b>💡 おすすめ</b>
 
+<br><br>
+
+初めてアドオンを作成する場合は、
+テンプレートをそのままコピーして
+編集する方法がおすすめです。
+
+</div>
+
+</div>
+
+<div class="step">
+
+<h3>
+
+Step 2
+コードを書く
+
+</h3>
+
+<p>
+
+コピーしたテンプレートを編集し、
+必要な機能を追加します。
+
+</p>
+
+<p>
+
+例えば次のような機能を追加できます。
+
+</p>
 
 <ul>
 
@@ -394,107 +355,587 @@ python bot.py
 
 <li>イベントリスナー</li>
 
-<li>DBを使った記録処理</li>
+<li>データベース処理</li>
 
 <li>独自ロジック</li>
 
 </ul>
 
+<p>
+
+以下はスラッシュコマンドの例です。
+
+</p>
+
+<pre>
+@app_commands.command(
+    name="sample",
+    description="サンプルコマンド"
+)
+
+async def sample(
+    self,
+    interaction: discord.Interaction
+):
+
+    await interaction.response.send_message(
+        "サンプルです",
+        ephemeral=True
+    )
+</pre>
+
+<div class="warning">
+
+<b>⚠️ 注意</b>
+
+<br><br>
+
+<code>setup(bot)</code>
+
+は削除しないでください。
+
+この関数が存在しない場合、
+アドオンは読み込まれません。
+
+</div>
+
+</div>
+<div class="step">
+
+<h3>
+
+Step 3
+addonフォルダへ配置する
+
+</h3>
+
+<p>
+
+コードの作成が完了したら、
+作成したPythonファイルを
+
+<code>addon/</code>
+
+フォルダへ配置します。
+
+</p>
+
+<pre>
+VillageCore-main/
+│
+├── addon/
+│   ├── sample_addon.py
+│   └── my_addon.py ← 作成したアドオン
+│
+└── bot.py
+</pre>
+
+<div class="point">
+
+<b>💡 ポイント</b>
+
+<br><br>
+
+Botは起動時に
+<code>addon/</code>
+フォルダ内のアドオンを自動検出し、
+順番に読み込みます。
+
+</div>
+
+</div>
+
+
+
+<div class="step">
+
+<h3>
+
+Step 4
+Botを再起動する
+
+</h3>
+
+<p>
+
+アドオンを配置したら、
+Botを再起動してください。
+
+</p>
+
+<pre>
+python bot.py
+</pre>
+
+<p>
+
+正常に読み込まれると、
+起動ログへ次のように表示されます。
+
+</p>
+
+<pre>
+✅ loaded addon: addon.my_addon
+</pre>
+
+<div class="point">
+
+<b>💡 読み込みについて</b>
+
+<br><br>
+
+Addonモジュールは
+
+<code>bot.py</code>
+
+起動時に自動検出され、
+
+<code>load_addons()</code>
+
+によって読み込まれます。
+
+</div>
+
+</div>
+
+
+
+<div class="step">
+
+<h3>
+
+Step 5
+動作確認
+
+</h3>
+
+<p>
+
+Botの再起動後は、
+以下の内容を確認してください。
+
+</p>
+
+<ul>
+
+<li>Botが正常に起動している</li>
+
+<li>起動ログにエラーが出ていない</li>
+
+<li>アドオンが読み込まれている</li>
+
+<li>Discordでコマンドが表示される</li>
+
+<li>期待した動作になっている</li>
+
+</ul>
+
+</div>
+
 
 
 <h2>
-4. 読み込み無効化
+
+✨ アドオンで追加できる機能
+
 </h2>
 
+<p>
+
+アドオンでは、
+Bot本体を編集することなく
+さまざまな機能を追加できます。
+
+</p>
+
+<div class="step">
+
+<ul>
+
+<li>🧩 スラッシュコマンド</li>
+
+<li>💬 通常コマンド</li>
+
+<li>🎧 イベントリスナー</li>
+
+<li>🗄️ SQLiteなどのデータベース処理</li>
+
+<li>🪙 コイン・ポイントシステム</li>
+
+<li>⚙️ サーバー専用機能</li>
+
+<li>📨 自動メッセージ送信</li>
+
+<li>🎮 独自ゲーム機能</li>
+
+</ul>
+
+</div>
+
+
+
+<h2>
+
+🚫 アドオンの読み込みを無効化する
+
+</h2>
 
 <p>
+
+読み込みたくないアドオンは、
+環境変数
 
 <code>DISABLED_ADDONS</code>
-環境変数で無効化できます。
+
+で指定できます。
 
 </p>
 
+<h3>
+
+1つだけ無効化する
+
+</h3>
 
 <pre>
-$env:DISABLED_ADDONS="addon.sample_addon"
+DISABLED_ADDONS=addon.sample_addon
 </pre>
+
+<h3>
+
+複数無効化する
+
+</h3>
+
+<pre>
+DISABLED_ADDONS=addon.sample_addon,addon.my_addon
+</pre>
+
+<div class="warning">
+
+<b>⚠️ 注意</b>
+
+<br><br>
+
+アドオン名は
+
+<code>addon.ファイル名</code>
+
+の形式で指定してください。
+
+拡張子
+
+<code>.py</code>
+
+は不要です。
+
+</div>
+
+    <h2>
+
+⚠️ よくあるミス
+
+</h2>
 
 
 <p>
 
-複数指定:
+アドオンが正常に読み込まれない場合は、
+以下を確認してください。
 
 </p>
 
 
-<pre>
-$env:DISABLED_ADDONS="addon.sample_addon,addon.my_addon"
-</pre>
-
-
-
-<h2>
-5. よくあるミス
-</h2>
+<div class="warning">
 
 
 <ul>
 
-<li>setup(bot)を書き忘れる</li>
+<li>
 
-<li>ファイル名とimport名が違う</li>
+<code>setup(bot)</code>
+を書き忘れている
 
-<li>addonフォルダ外に作成する</li>
+</li>
 
-<li>discord.pyのimportミス</li>
 
-<li>再起動していない</li>
+<li>
+
+ファイル名と読み込み名が一致していない
+
+</li>
+
+
+<li>
+
+<code>addon/</code>
+フォルダ以外に配置している
+
+</li>
+
+
+<li>
+
+Pythonのimportに間違いがある
+
+</li>
+
+
+<li>
+
+Botを再起動していない
+
+</li>
+
+
+<li>
+
+必要なライブラリがインストールされていない
+
+</li>
+
 
 </ul>
 
 
-
-<h2>
-6. 追加後の確認
-</h2>
-
-
-<ol>
-
-<li>起動ログを確認</li>
-
-<li>Discordでコマンド確認</li>
-
-<li>動作確認</li>
-
-</ol>
+</div>
 
 
 
 <h2>
-7. テンプレート
+
+📄 templateフォルダについて
+
 </h2>
+
+
+<p>
+
+<code>template/</code>
+
+フォルダには、
+アドオン作成用のテンプレートファイルが
+保存されています。
+
+</p>
+
+
+<p>
+
+新しいアドオンを作成するときは、
+テンプレートをコピーして編集してください。
+
+</p>
+
+
+<pre>
+template/
+
+└── sample_addon.py
+</pre>
+
+
+<div class="point">
+
+<b>💡 テンプレートを利用するメリット</b>
+
+<br><br>
+
+テンプレートには、
+アドオンに必要な基本構成が
+あらかじめ用意されています。
+
+<br><br>
+
+以下の内容を最初から利用できます。
+
+<ul>
+
+<li>
+Discord.py の import
+</li>
+
+<li>
+Cog の基本構造
+</li>
+
+<li>
+setup(bot)
+</li>
+
+<li>
+サンプル処理
+</li>
+
+</ul>
+
+</div>
+
+
+
+<h2>
+
+🧩 アドオンテンプレート例
+
+</h2>
+
+
+<p>
+
+基本的なアドオンは
+以下のような形になります。
+
+</p>
 
 
 <pre>
 import discord
+
 from discord import app_commands
+
 from discord.ext import commands
 
 
-class TemplateAddonCog(commands.Cog):
+
+class MyAddon(commands.Cog):
+
     def __init__(self, bot: commands.Bot):
+
         self.bot = bot
 
-    @app_commands.command(name="template_demo", description="テンプレート用のサンプルコマンド")
-    async def template_demo(self, interaction: discord.Interaction) -> None:
-        await interaction.response.send_message("Template addon loaded", ephemeral=True)
 
 
-async def setup(bot: commands.Bot) -> None:
-    await bot.add_cog(TemplateAddonCog(bot))
+    @app_commands.command(
+        name="sample",
+        description="サンプルコマンド"
+    )
 
+    async def sample(
+        self,
+        interaction: discord.Interaction
+    ):
+
+        await interaction.response.send_message(
+            "サンプルです",
+            ephemeral=True
+        )
+
+
+
+async def setup(bot: commands.Bot):
+
+    await bot.add_cog(
+        MyAddon(bot)
+    )
 </pre>
+
+
+
+<h2>
+
+✅ アドオン追加チェックリスト
+
+</h2>
+
+
+<div class="step">
+
+
+<ul>
+
+<li>
+☑ templateからファイルをコピーした
+</li>
+
+
+<li>
+☑ アドオン名を変更した
+</li>
+
+
+<li>
+☑ 必要なコードを追加した
+</li>
+
+
+<li>
+☑ addonフォルダへ配置した
+</li>
+
+
+<li>
+☑ Botを再起動した
+</li>
+
+
+<li>
+☑ 起動ログを確認した
+</li>
+
+
+<li>
+☑ Discord上で動作確認した
+</li>
+
+
+</ul>
+
+
+</div>
+
+
+
+<h2>
+
+🌱 まとめ
+
+</h2>
+
+
+<p>
+
+
+むらびと君(アドオン用)では、
+アドオン機能を利用することで
+自由にBotの機能を拡張できます。
+
+</p>
+
+
+<p>
+
+基本的な流れは以下の通りです。
+
+</p>
+
+
+<pre>
+① templateをコピー
+
+↓
+
+② コードを書く
+
+↓
+
+③ addonフォルダへ配置
+
+↓
+
+④ Botを再起動
+
+↓
+
+⑤ 動作確認
+</pre>
+
+
+<p>
+
+必要な機能に合わせて、
+自由にアドオンを作成してください。
+
+</p>
 
 
 
@@ -508,11 +949,9 @@ async def setup(bot: commands.Bot) -> None:
 
 </div>
 
-
 </div>
 
 
 </body>
-
 
 </html>

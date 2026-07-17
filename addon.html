@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>アドオン作成方法</title>
+
+<style>
+body{
+margin:0;
+background:#F4FFF4;
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Yu Gothic UI",sans-serif;
+color:#333;
+}
+
+.container{
+max-width:900px;
+margin:50px auto;
+background:white;
+padding:40px;
+border-radius:15px;
+border-left:8px solid #4CAF50;
+box-shadow:0 8px 25px rgba(0,0,0,.1);
+}
+
+h1,h2{
+color:#2E7D32;
+}
+
+pre{
+background:#263238;
+color:#8BC34A;
+padding:20px;
+border-radius:10px;
+overflow:auto;
+}
+
+code{
+background:#E8F5E9;
+padding:3px 6px;
+border-radius:5px;
+}
+
+a{
+color:#43A047;
+font-weight:bold;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+<h1>アドオン作成方法</h1>
+
+
+<p>
+むらびと君(アドオン用)では、Pythonファイルを追加することでアドオンを作成できます。
+</p>
+
+
+<h2>作成手順</h2>
+
+
+<ol>
+
+<li>
+<code>/addon</code> フォルダへ <code>*.py</code> ファイルを追加します。
+</li>
+
+<li>
+各ファイルに <code>async def setup(bot)</code>
+または
+<code>def setup(bot)</code>
+を定義します。
+</li>
+
+<li>
+<code>bot.load_extension("addon.&lt;module_name&gt;")</code>
+形式で読み込まれます。
+</li>
+
+</ol>
+
+
+<h2>サンプル</h2>
+
+
+<pre>
+from discord.ext import commands
+
+class MyAddon(commands.Cog):
+
+    def __init__(self, bot: commands.Bot):
+        self.bot = bot
+
+    @commands.Cog.listener()
+    async def on_ready(self):
+        print("MyAddon loaded")
+
+
+async def setup(bot: commands.Bot):
+    await bot.add_cog(MyAddon(bot))
+</pre>
+
+
+<h2>設定</h2>
+
+
+<p>
+読み込み除外は
+<code>DISABLED_ADDONS</code>
+環境変数で設定できます。
+</p>
+
+
+<pre>
+DISABLED_ADDONS=addon.sample_addon
+</pre>
+
+
+<h2>Addon読み込みについて</h2>
+
+
+<p>
+Addon モジュールは
+<code>bot.py</code>
+の起動時に自動検出され、
+<code>load_addons()</code>
+で読み込まれます。
+</p>
+
+
+<p>
+<a href="index.html">← トップページへ戻る</a>
+</p>
+
+
+</div>
+
+
+</body>
+</html>
